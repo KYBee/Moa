@@ -17,5 +17,12 @@
     <p>펀딩 필요 금액 : {{order.target_money}}</p>
     <p>배송 희망 위치 : {{order.receive_place}}</p>
 
+    <a href="{% url 'order:order_update' order.pk %}">수정</a>
+
+    <form action="{% url 'order:order_delete' order.pk %}" method="POST">
+        {% csrf_token %}
+        <button>삭제</button>
+    </form>
+
 </body>
 </html>

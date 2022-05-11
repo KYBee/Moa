@@ -4,9 +4,9 @@ from user.models import Participant
 class Order(models.Model):
     store = models.CharField(max_length=30, verbose_name="상호")
     receive_place = models.CharField(max_length=30, verbose_name="배송 희망 위치")
-    host = models.ForeinKey(Participant, on_delete=models.CASCADE, related_name="host_set", verbose_name="펀딩개설자", blank=True, null=True)
+    host = models.ForeignKey(Participant, on_delete=models.CASCADE, related_name="host_set", verbose_name="펀딩개설자", blank=True, null=True)
     order_status = models.BooleanField(default=False, verbose_name="펀딩상태")
-    target_peope = models.PositiveIntegerField(verbose_name="펀딩 희망 인원")
+    target_people = models.PositiveIntegerField(verbose_name="펀딩 희망 인원")
     target_money = models.PositiveIntegerField(verbose_name="펀딩 필요 금액")
     target_time = models.DateTimeField(verbose_name="완료시간")
     created_at = models.DateField(auto_now_add=True, verbose_name="생성일")

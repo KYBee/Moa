@@ -27,8 +27,8 @@ def order_create(request):
         form = OrderForm(request.POST)
 
         if form.is_valid():
-            order = order.save()
-            order.host = request.user
+            order = form.save(commit=False)
+            #order.host = request.user
             order.save()
 
             return redirect('order:order_read', order.pk)
@@ -56,7 +56,7 @@ def order_update(request, pk):
         context = {
             'form': form
         }
-        return render(Order, 'order/order_update.html', context)
+        return render(request, 'order/order_update.html', context)
 
 
 def order_delete(request, pk):

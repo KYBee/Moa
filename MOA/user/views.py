@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .views import *
 from .forms import *
+from order.urls import *
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
@@ -80,7 +81,7 @@ def user_login(request):
         
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('order:order_list')
         else:
             context = {
                 'form': form,
@@ -99,7 +100,7 @@ def user_login(request):
 def user_logout(request):
     if request.method == "POST":
         logout(request)
-        return redirect('home')
+        return redirect('order:order_list')
             
 
 

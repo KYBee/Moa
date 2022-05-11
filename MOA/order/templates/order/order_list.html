@@ -8,24 +8,20 @@
 </head>
 <body>
     {% for order in orders %}
-
         <hr>
-
-        <div>
-            <a href="{% url 'order:order_read' order.pk %}">
+            <div>
                 <div>
-                    <p>상호 : {{order.store}}</p>
-                    <p>펀딩상태 : {{order.order_status}}</p>
-                    <p>완료시간 : {{order.target_time}}</p>
-                    <p>펀딩 희망 인원 : {{order.target_people}}</p>
-                    <p>펀딩 필요 금액 : {{order.target_money}}</p>
-                    <p>배송 희망 위치 : {{order.receive_place}}</p>
+                    <a href="{% url 'order:order_read' order.pk %}">
+                        <p>상호 : {{order.store}}</p>
+                        <p>펀딩상태 : {{order.order_status}}</p>
+                        <p>완료시간 : {{order.target_time}}</p>
+                        <p>펀딩 희망 인원 : {{order.target_people}}</p>
+                        <p>펀딩 필요 금액 : {{order.target_money}}</p>
+                        <p>배송 희망 위치 : {{order.receive_place}}</p>
+                    </a>
                 </div>
-            </a>
-        </div>
-
+            </div>
         <hr>
-
     {% endfor %}
 </body>
 </html>
