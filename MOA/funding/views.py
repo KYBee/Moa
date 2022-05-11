@@ -10,12 +10,11 @@ def funding_list(request, pk):
     #유저를 먼저 가져오고 그걸 pk와 비교
     participant = get_object_or_404(Participant, pk=pk)
     if participant == request.user:
-        if request.method == "POST":
-            fundings = Fund.objects.all()
-            context = {
-                'fundings': fundings
-            }
-            return render(request, "funding/funding_list.html", context)
+        fundings = Fund.objects.all()
+        context = {
+            'fundings': fundings
+        }
+        return render(request, "funding/funding_list.html", context)
     return redirect("order:order_list")
 
 """
