@@ -60,8 +60,7 @@ def user_signup(request):
             return render(request, 'user/user_signup.html', context)
         else:
             form.save()
-            context = {}
-            return render(request, 'user/user_signup_success.html', context)
+            return redirect('user:user_signup_success')
     
     else:
         form = SignupForm()
@@ -103,4 +102,11 @@ def user_logout(request):
         return redirect('order:order_list')
             
 
+def user_signup_success(request):
+    if request.user.is_authenticated:
+        return redirect("order:order_list")
+    else:
+        context = {
 
+        }
+        return render(request, 'user/user_signup_success.html', context)

@@ -23,9 +23,9 @@ def funding_list(request):
 
         # 0 -> 전체, 1 -> 만료 이전, 2 -> 만료
         if status == '1':
-            fundings = Fund.objects.filter(order__order_status=False)
+            fundings = Fund.objects.filter(order__order_status=False, participant=request.user)
         elif status == '2':
-            fundings = Fund.objects.filter(order__order_status=True)
+            fundings = Fund.objects.filter(order__order_status=True, participant=request.user)
         else:
             fundings = Fund.objects.filter(participant=request.user)
 
