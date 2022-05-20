@@ -17,19 +17,27 @@
     <p>펀딩 필요 금액 : {{order.target_money}}</p>
     <p>배송 희망 위치 : {{order.receive_place}}</p>
 
+    <hr>
+
     <a href="{% url 'order:order_update' order.pk %}">수정</a>
+    <br><br>
 
     <form action="{% url 'order:order_delete' order.pk %}" method="POST">
         {% csrf_token %}
         <button>삭제</button>
     </form>
+    <br>
 
     {% if user == order.host %}
+        <a href="{{order.chat_room}}">채팅방 링크: {{order.chat_room}}</a>
+        <br><br>
         <form action="{% url 'order:order_close' order.pk %}" method="POST">
             {% csrf_token %}
             <button>주문완료</button>
         </form>
     {% elif fund %}
+        <a href="{{order.chat_room}}">채팅방 링크: {{order.chat_room}}</a>
+        <br><br>
         <form action="{% url 'funding:funding_delete' fund.pk %}" method="POST">
             {% csrf_token %}
             <button>펀딩참여취소</button>

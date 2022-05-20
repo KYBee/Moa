@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
+
 from .models import *
 from funding.models import *
 from .forms import *
@@ -61,9 +64,14 @@ def order_create(request):
     if request.method == "POST":
         form = OrderForm(request.POST)
 
-        try:
-            if form.is_valid():
+        if form.is_valid():
+            # open chat url validation
+            try:
                 order = form.save(commit=False)
+
+                validate = URLValidator()
+                validate(order.chat_room)
+
                 order.host = request.user
                 order.save()
 
@@ -72,11 +80,13 @@ def order_create(request):
                     participant=request.user,
                 )
                 return redirect('order:order_read', order.pk)
-        except:
-            context = {
-                'form': form,
-            }
-            return render(request, 'order/order_create.html', context)
+            except:
+                pass
+            
+        context = {
+            'form': form,
+        }
+        return render(request, 'order/order_create.html', context)
 
     else:
         form = OrderForm()

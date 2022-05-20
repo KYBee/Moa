@@ -10,6 +10,7 @@ class Order(models.Model):
     target_people = models.PositiveIntegerField(verbose_name="펀딩 희망 인원")
     target_money = models.PositiveIntegerField(verbose_name="펀딩 필요 금액")
     target_time = models.DateTimeField(verbose_name="완료시간")
+    chat_room = models.URLField(max_length=200, null=True, blank=True, verbose_name="오픈채팅방 링크")
     created_at = models.DateField(auto_now_add=True, verbose_name="생성일")
     updated_at = models.DateField(auto_now_add=True, verbose_name="수정일")
 
