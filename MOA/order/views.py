@@ -4,10 +4,25 @@ from funding.models import *
 from .forms import *
 from django.core.paginator import Paginator
 
+PAGINATOR_COUNT = 5
+
 def order_list(request):
-    orders = Order.objects.all()
+    # Query String을 통한 정렬
+    try:
+        request.GET["sort"]
+        orders = Order.objects.all().order_by('target_time')
+    except:
+        orders = Order.objects.all().order_by('-created_at')
 
     #Pagination Code
+    paginator = Paginator(orders, PAGINATOR_COUNT)
+
+    try:
+        page = request.GET['page']
+        orders = paginator.get_page(page)
+    except:
+        orders = paginator.get_page(1)
+
     context = {
         'orders': orders
     } 
