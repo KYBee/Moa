@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import F, Q
 from user.models import Participant
 
 class Order(models.Model):
@@ -14,3 +15,11 @@ class Order(models.Model):
 
     def __str__(self):
         return "{0} {1}".format(self.store, self.host)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check = Q(target_time__gt=F('updated_at')),
+                name = "target_time_earlier_than_now"
+            )
+        ]

@@ -8,11 +8,11 @@
 </head>
 <body>
 
-    <a href="?sort=1&status={{status}}&page={{page}}">종료 임박 순</a>
     <a href="?sort=0&status={{status}}&page={{page}}">생성 순</a>
+    <a href="?sort=1&status={{status}}&page={{page}}">종료 임박 순</a>
 
-    <a href="?sort={{sort}}&status=1&page={{page}}">미완료 주문만 보기</a>
     <a href="?sort={{sort}}&status=0&page={{page}}">주문 전체 보기</a>
+    <a href="?sort={{sort}}&status=1&page={{page}}">미완료 주문만 보기</a>
 
     {% for order in orders %}
         <hr>

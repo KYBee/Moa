@@ -7,9 +7,14 @@ from django.core.paginator import Paginator
 PAGINATOR_COUNT = 5
 
 def order_list(request):
-    sort = request.GET["sort"]
-    status = request.GET["status"]
-    page = request.GET['page']
+    try:
+        sort = request.GET["sort"]
+        status = request.GET["status"]
+        page = request.GET['page']
+    except:
+        sort = '0'
+        status = '0'
+        page = '1'
 
     # Query String을 통한 정렬
     if sort == '1':
@@ -56,12 +61,18 @@ def order_create(request):
     if request.method == "POST":
         form = OrderForm(request.POST)
 
-        if form.is_valid():
-            order = form.save(commit=False)
-            order.host = request.user
-            order.save()
+        try:
+            if form.is_valid():
+                order = form.save(commit=False)
+                order.host = request.user
+                order.save()
 
-            return redirect('order:order_read', order.pk)
+                return redirect('order:order_read', order.pk)
+        except:
+            context = {
+                'form': form,
+            }
+            return render(request, 'order/order_create.html', context)
 
     else:
         form = OrderForm()
