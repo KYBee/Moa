@@ -67,6 +67,10 @@ def order_create(request):
                 order.host = request.user
                 order.save()
 
+                Fund.objects.create(
+                    order=order,
+                    participant=request.user,
+                )
                 return redirect('order:order_read', order.pk)
         except:
             context = {
@@ -106,5 +110,17 @@ def order_delete(request, pk):
     if request.method == "POST":
         order.delete()
         return redirect('order:order_list')
+    else:
+        redirect('order:order_read', order.pk)
+
+def order_close(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+
+    if request.method == "POST" and request.user == order.host:
+
+        order.order_status = True
+        order.save()
+
+        return redirect('order:order_read', order.pk)
     else:
         redirect('order:order_read', order.pk)

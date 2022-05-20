@@ -29,6 +29,11 @@
             {% csrf_token %}
             <button>펀딩참여취소</button>
         </form>
+    {% elif user == order.host %}
+        <form action="{% url 'order:order_close' order.pk %}" method="POST">
+            {% csrf_token %}
+            <button>주문완료</button>
+        </form>
     {% else %}
         <form action="{% url 'funding:funding_create' order.pk %}" method="POST">
             {% csrf_token %}
