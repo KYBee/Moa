@@ -6,16 +6,12 @@ from .models import *;
 """
 pk : user.pk
 """
-def funding_list(request, pk):
-    #유저를 먼저 가져오고 그걸 pk와 비교
-    participant = get_object_or_404(Participant, pk=pk)
-    if participant == request.user:
-        fundings = Fund.objects.all()
-        context = {
-            'fundings': fundings
-        }
-        return render(request, "funding/funding_list.html", context)
-    return redirect("order:order_list")
+def funding_list(request):
+    fundings = Fund.objects.filter(participant=request.user)
+    context = {
+        'fundings': fundings
+    }
+    return render(request, "funding/funding_list.html", context)
 
 """
 pk : order.pk
