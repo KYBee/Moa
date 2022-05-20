@@ -7,31 +7,33 @@ from django.core.paginator import Paginator
 PAGINATOR_COUNT = 5
 
 def order_list(request):
+    sort = request.GET["sort"]
+    status = request.GET["status"]
+    page = request.GET['page']
+
     # Query String을 통한 정렬
-    try:
-        request.GET["sort"]
+    if sort == '1':
         orders = Order.objects.all().order_by('target_time')
-    except:
+    else:
         orders = Order.objects.all().order_by('-created_at')
 
     # Query String을 통한 미완료, 전체 주문 Filtering
-    try:
-        request.GET["filter"]
+    if status == '1':
         orders = orders.filter(order_status=False)
-    except:
-        pass
 
     #Pagination Code
     paginator = Paginator(orders, PAGINATOR_COUNT)
 
-    try:
-        page = request.GET['page']
-        orders = paginator.get_page(page)
-    except:
-        orders = paginator.get_page(1)
+    if page == None:
+        page = 1
+    
+    orders = paginator.get_page(page)
 
     context = {
-        'orders': orders
+        'orders': orders,
+        'sort' : sort,
+        'status' : status,
+        'page': page,
     } 
 
     return render(request, 'order/order_list.html', context)
@@ -46,7 +48,6 @@ def order_read(request, pk):
         'order': order,
         'fund' : fund
     }
-    print(context)
 
     return render(request, 'order/order_read.html', context)
 
