@@ -14,6 +14,13 @@ def order_list(request):
     except:
         orders = Order.objects.all().order_by('-created_at')
 
+    # Query String을 통한 미완료, 전체 주문 Filtering
+    try:
+        request.GET["filter"]
+        orders = orders.filter(order_status=False)
+    except:
+        pass
+
     #Pagination Code
     paginator = Paginator(orders, PAGINATOR_COUNT)
 
