@@ -7,7 +7,19 @@
     <title>Document</title>
 </head>
 <body>
+
+    <hr>
+
+    <h2>마이페이지</h2>
+    <h3>{{request.user.username}}</h3>
+    <p>{{request.user.email}}</p>
+
+    <hr>
     
+    <a href="?status=0">전체 펀딩 목록</a>
+    <a href="?status=1">진행중 펀딩 목록</a>
+    <a href="?status=2">종료된 펀딩 목록</a>
+
     {% for funding in fundings %}
         <hr>
             <a href="{% url 'order:order_read' funding.order.pk %}">
