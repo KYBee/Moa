@@ -41,8 +41,9 @@ def order_list(request):
 def order_read(request, pk):
     order = get_object_or_404(Order, pk=pk)
     fund = None
-    if Fund.objects.filter(participant=request.user, order=order).exists():
-        fund = get_object_or_404(Fund, participant=request.user, order=order)
+    if request.user.is_authenticated:
+        if Fund.objects.filter(participant=request.user, order=order).exists():
+            fund = get_object_or_404(Fund, participant=request.user, order=order)
 
     context = {
         'order': order,
