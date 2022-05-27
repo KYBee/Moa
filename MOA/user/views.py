@@ -15,6 +15,9 @@ from django.views.decorators.csrf import csrf_protect
 
 @csrf_protect
 def user_signup(request):
+    if request.user.is_authenticated:
+        return redirect('order:order_list')
+
     if request.method == "POST":
         form = SignupForm(request.POST)
 
@@ -71,6 +74,9 @@ def user_signup(request):
 
 @csrf_protect
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('order:order_list')
+
     if request.method == "POST":
         form = LoginForm(request.POST)
         
@@ -97,10 +103,11 @@ def user_login(request):
 
 @csrf_protect
 def user_logout(request):
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_authenticated:
         logout(request)
-        return redirect('order:order_list')
-            
+
+    return redirect('order:order_list')
+                
 
 def user_signup_success(request):
     if request.user.is_authenticated:

@@ -1,0 +1,109 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+:root {
+  --text-color: black;
+  --nav-text-color: black;
+
+  --background-color: white;
+  --nav-color: #CDDEFF;
+  --nav-line-color: white;
+  --footer-color: #CDDEFF;
+}
+
+* {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
+
+.body {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  height: 100vh;
+  min-width: 360px;
+  width: 30vw;
+  margin: 0 auto;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 24px;
+  justify-content: space-between;
+  height: 50px;
+  background-color: var(--nav-color);
+}
+
+.navbar__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar__logo > a { 
+  font-size: .8rem;
+}
+
+.navbar__menu {
+  display: none;
+  background-color: var(--nav-color);
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.navbar__menu li {
+  width: 100%;
+  height: 12px;
+  padding: 15px;
+  padding-left: 25px;
+  text-align: left;
+}
+
+.navbar__menu li a {
+  text-decoration: none;
+  color: var(--nav-text-color);
+}
+
+.navbar__toggleBtn {
+  display: block;
+}
+
+.navbar__toggleBtn > img {
+  width: 20px;
+  display: flex;
+}
+
+.navbar__menu.active {
+  display: flex;
+}
+
+.footer {
+  min-height: 40px;
+  background-color: var(--footer-color);
+  position: relative;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__icon {
+  padding: 24px;
+}
+
+.footer__content {
+  padding: 2px 24px;
+  line-height: 1.5rem;
+}
+
+.footer__logo {
+  padding: 24px;
+}
+
+.content {
+  min-height: 75vh;
+  padding: 15px;
+}
+
+.rotate__true {
+  transform: rotate(90deg);
+}

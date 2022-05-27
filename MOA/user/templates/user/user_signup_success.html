@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+{% extends 'layout.html' %} {% load static %}
+
+{% block content %}
+
     회원가입 완료
 
     <a href="{% url 'user:user_login' %}">로그인</a>
     <a href="{% url 'order:order_list' %}">주문보기</a>
 
-</body>
-</html>
+
+{% endblock content %}

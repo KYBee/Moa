@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="{% static 'img/favicon.png' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
+    <script src="{% static 'js/layout.js' %}" defer></script>
+
+    {% block extra_head %}{% endblock extra_head %}
+
+    <title>주문을 모아보다: 모아</title>
+  </head>
+  <body>
+    <div class="body">
+      <div class="navbar">
+        <a href="{% url 'order:order_list' %}">
+            <div class="navbar__logo">
+                <img class="navbar__img" src="{% static 'img/nav-logo.png' %}" alt="">
+            </div>
+        </a>
+
+        <a href="#" class="navbar__toggleBtn rotate_true">
+            <img class="navbar__toggleBtnImg" src="{% static 'img/toggle.png' %}" alt="">
+        </a>
+      </div>
+      <div class="navbar__menu">
+        <ul>
+            {% if user.is_active %}
+                <li><a href="{% url 'funding:funding_list' %}">나의 주문 모아 보기</a></li>
+                <li><a href="{% url 'user:user_logout' %}">로그아웃</a></li>                
+                <li> </li>
+            {% else %}
+                <li><a href="{% url 'user:user_login' %}">로그인</a></li>
+                <li><a href="{% url 'user:user_signup' %}">회원가입</a></li>
+                <li> </li>
+            {% endif %}
+        </ul>
+      </div>
+
+
+
+      <div class="content">{% block content %}{% endblock content %}</div>
+
+      <div class="footer">
+
+        <div class="footer__icon">
+          <a href="{% url 'order:order_list' %}">
+            <img src="{% static 'img/nav-logo.png' %}" alt="">
+          </a>
+        </div>
+
+        <div class="footer__content">
+          <ul>
+            <li>footer 내용 1</li>
+            <li>footer 내용 2</li>
+            <li>footer 내용 3</li>
+          </ul>
+        </div>
+
+        <div class="footer__logo">  
+            <a href="{% url 'order:order_list' %}">
+              <img src="{% static 'img/footer-logo.png' %}" alt="">
+            </a>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
