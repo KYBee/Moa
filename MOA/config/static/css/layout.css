@@ -107,3 +107,9 @@
 .rotate__true {
   transform: rotate(90deg);
 }
+
+@media (max-width: 767px) {
+  .body {
+    width: 100vw;
+  }
+}
