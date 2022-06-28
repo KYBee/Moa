@@ -54,3 +54,12 @@
     border : 0px;
     border-radius: 5px;
 }
+
+.unavailable {
+    display: block;
+    width: 14rem;
+    text-align: left;
+    font-size: .8rem;
+    margin: .5rem 0;
+    color: red;
+}

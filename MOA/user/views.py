@@ -90,7 +90,7 @@ def user_login(request):
         else:
             context = {
                 'form': form,
-                'error': "아이디 혹은 비밀번호를 다시 확인해주세요",
+                'error': "아이디, 비밀번호를 다시 확인해주세요",
             }
             return render(request, 'user/user_login.html', context)
 
