@@ -11,7 +11,10 @@
 
     <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}" />
+
     <script src="{% static 'js/layout.js' %}" defer></script>
+    <script src="{% static 'js/modal.js' %}"></script>
 
     {% block extra_head %}{% endblock extra_head %}
 
@@ -34,7 +37,7 @@
         <ul>
             {% if user.is_active %}
                 <li><a href="{% url 'funding:funding_list' %}">나의 주문 모아 보기</a></li>
-                <li><a href="{% url 'user:user_logout' %}">로그아웃</a></li>                
+                <li><a href="javascript:void(0)" onclick="show_modal();">로그아웃</a></li>                
                 <li> </li>
             {% else %}
                 <li><a href="{% url 'user:user_login' %}">로그인</a></li>
@@ -73,4 +76,22 @@
       </div>
     </div>
   </body>
+
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+  <div id="loggoutModal" class="modal">
+
+    <!--modal content-->
+    <div class="modal-content">
+      <p>로그아웃 하시겠습니까?</p>
+      <div class="modal-button">
+        <form action="{% url 'user:user_logout' %}" method="POST">
+          {% csrf_token %}
+          <button>로그아웃</button>
+        </form>
+        <button onclick="close_modal();">취소</button>
+      </div>
+    </div>
+  </div>
+
 </html>

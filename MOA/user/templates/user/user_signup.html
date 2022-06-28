@@ -1,50 +1,67 @@
 {% extends 'layout.html' %} {% load static %}
 
+{% block extra_head %}
+    <script src="{% static 'js/signup.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock extra_head %}
+
 {% block content %}
 
-    <div class="signup">
+    <div class="signup__container">
 
-        <div class="signup__title">
-            <h3>회원 가입</h3>
+        <div class="signup__top">
+            <img class="signup__logo" src="{% static 'img/login-logo.png' %}" alt="login-logo">
+            <div class="signup__title">
+                모아를 시작해볼까요?
+            </div>
         </div>
 
         <form action="" method="POST" class="signup__form">
             {%csrf_token%}        
     
             {% for field in form %}
-    
-                <div class="signup__field {{field.name}}">
-                    <div class="signup__field__label">{{field.label}}</div>
-                    {{field}}
-                </div>
-                {% if field.name == 'agree' %}
-                    {% if is_agree %}
-                        <div id="email__available">
-                            <p id="email_status" style="color: red;">{{error_agree}}</p>
-                        </div>  
-                    {% endif %}
-                {% elif field.name == 'email' %}
-                    <div class="signup__field">
-                        <div id="email__available">
-                            {% if email %}
-                                <p id="email_status" style="color: red;">{{error_email}}</p>
-                            {% else %}
-                                <p id="email_status"></p>
-                            {% endif %}                        
-                        </div>
-                        <button class="email__confirm" onclick="onClickEmail()">중복 확인</button>
+                {% if field.name == 'is_agree' %}
+                    <div class="signup__content">
+                        약관
                     </div>
+                    <div class="signup__agree">
+                        <p>약관에 동의하십니까?</p>
+                        {{field}}
+                    </div>
+                    {% if is_agree %}
+                        <p class="unavailable">
+                            {{is_agree}}
+                        </p>  
+                    {% endif %}
+                {% else %}
+                    <div class="signup__field {{field.name}}">
+                        {{field}}
+                    </div>
+                {% endif %}
+
+                {% if field.name == 'email' %}
+                    {% if email %}
+                        <p class="unavailable">
+                            {{email}}
+                        </p>
+                    {% endif %}                        
+                {% elif field.name == 'username' %}
+                    {% if username %}
+                        <p class="unavailable">
+                            {{username}}
+                        </p>
+                    {% endif %}                        
                 {% elif field.name == 'password2' %}
                     {% if password %}
-                        <div id="email__available">
-                            <p id="email_status" style="color: red;">{{error_password}}</p>
-                        </div>  
+                        <p class="unavailable">
+                            {{password}}
+                        </p>  
                     {% endif %}
                 {% endif %}
     
             {% endfor %}
     
-            <div class="signup__field">
+            <div class="signup__button">
                 <button type="submit" class="signup__submit">회원가입</button>
             </div>
         </form>

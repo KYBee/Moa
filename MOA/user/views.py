@@ -46,7 +46,7 @@ def user_signup(request):
             validate_password(password1)
             validate_password(password2)
         except:
-            error['password'] = "비밀번호는 영문자, 숫자, 특수문자의 조합이어야 합니다."
+            error['password'] = "영문자, 숫자, 특수문자의 조합을 사용하세요."
         else:
             if password1 != password2:
                 error['password'] = "입력하신 비밀번호가 서로 다릅니다."
@@ -90,7 +90,7 @@ def user_login(request):
         else:
             context = {
                 'form': form,
-                'error': "아이디 혹은 비밀번호를 다시 확인해주세요",
+                'error': "아이디, 비밀번호를 다시 확인해주세요",
             }
             return render(request, 'user/user_login.html', context)
 
