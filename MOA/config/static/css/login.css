@@ -1,6 +1,8 @@
 :root {
     --input--border--setting: 1px solid #CDDEFF;
     --input--border--radius: 5px;
+    --button--background : #676FA3;
+    --button--text : #EEF2FF;
 }
 
 .login__container {
@@ -17,8 +19,12 @@
     justify-content: space-evenly;
 }
 
+.login__logo {
+    margin-right: 5px;
+}
+
 .login__title {
-    margin-left: 10px;
+    margin-left: 5px;
     font-size: 25px;
     height: 54px;
     line-height: 54px;
@@ -40,4 +46,10 @@
 
 .login__submit {
     margin: 1rem auto 0 auto;
+    width: 8rem;
+    height : 2rem;
+    background-color: var(--button--background);
+    color : var(--button--text);
+    border : 0px;
+    border-radius: 5px;
 }
