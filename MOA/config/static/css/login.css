@@ -1,0 +1,43 @@
+:root {
+    --input--border--setting: 1px solid #CDDEFF;
+    --input--border--radius: 5px;
+}
+
+.login__container {
+    display: flex;
+    height: 75vh;
+    width: 100%;
+    flex-direction: column;
+    justify-content : center;
+    align-items : center;
+}
+
+.login__top {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.login__title {
+    margin-left: 10px;
+    font-size: 25px;
+    height: 54px;
+    line-height: 54px;
+}
+
+.login__field > input {
+    width: 14rem;
+    height: 2rem;
+    margin: .5rem 0;
+    border: var(--input--border--setting);
+    border-radius: var(--input--border--radius);
+}
+
+.login__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__submit {
+    margin: 1rem auto 0 auto;
+}
