@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 class SignupForm(UserCreationForm):
     class Meta:
         model = Participant
-        fields = ('username', 'email', 'is_agree')
+        fields = ('email', 'username', 'password1', 'password2', 'is_agree')
         widgets = {
         }
 
