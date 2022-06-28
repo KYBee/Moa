@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}" />
+
     <script src="{% static 'js/layout.js' %}" defer></script>
 
     {% block extra_head %}{% endblock extra_head %}
@@ -73,4 +75,22 @@
       </div>
     </div>
   </body>
+
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+  <div id="loggoutModal" class="modal">
+
+    <!--modal content-->
+    <div class="modal-content">
+      <p>로그아웃 하시겠습니까?</p>
+      <div class="modal-button">
+        <form action="{% url 'user:user_logout' %}" method="POST">
+          {% csrf_token %}
+          <button>로그아웃</button>
+        </form>
+        <button onclick="close_pop();">취소</button>
+      </div>
+    </div>
+  </div>
+
 </html>

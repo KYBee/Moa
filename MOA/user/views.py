@@ -60,7 +60,6 @@ def user_signup(request):
                 'form' : form
             }
             context.update(error)
-            print(error)
             return render(request, 'user/user_signup.html', context)
         else:
             form.save()
