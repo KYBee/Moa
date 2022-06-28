@@ -34,6 +34,7 @@
     width: 14rem;
     height: 2rem;
     margin: .5rem 0;
+    padding: 0 1rem;
     border: var(--input--border--setting);
     border-radius: var(--input--border--radius);
 }
