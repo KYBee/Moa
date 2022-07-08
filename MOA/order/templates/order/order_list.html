@@ -32,21 +32,33 @@
         
         <div class="order__list__container">
             {% for order in orders %}
-            <div class="order__list">
-                <a href="{% url 'order:order_read' order.pk %}">
-                    <div class="order__list__left">
-                        <p>주문서</p>
-                        <p>상   호 {{order.store}}</p>
-                        <p>펀딩상태 {{order.order_status}}</p>
-                        <p>완료시간 {{order.target_time}}</p>
+            <a href="{% url 'order:order_read' order.pk %}">
+
+                <div class="order__list">
+                    <p class="order__list__title">주문서</p>
+                    <div class="order__list__list">
+                        <div class="order__list__left">
+                            <p class="order__content">상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;호&nbsp;&nbsp;&nbsp;{{order.store}}</p>
+                            {% if order.order_status %}
+                                <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행중 <span class="order__ing">●</span></p>
+                            {% else %}
+                                <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행완료 <span class="order__end">●</span></p>
+                            {% endif %}
+                            <p class="order__content">완료시간</p>
+                            <p class="order__content">{{order.target_time}}</p>
+                        </div>
+                        <div class="order__line"></div>
+                        <div class="order__list__right">
+                            <p class="order__content">펀딩 희망 인원&nbsp;&nbsp;&nbsp;{{order.target_people}}</p>
+                            <p class="order__content">펀딩 필요 금액&nbsp;&nbsp;&nbsp;{{order.target_money}}</p>
+                            <p class="order__content">배송 희망 위치</p>
+                            <p class="order__content">{{order.receive_place}}</p>
+                        </div>
                     </div>
-                    <div class="order__list__right">
-                        <p>펀딩 희망 인원 {{order.target_people}}</p>
-                        <p>펀딩 필요 금액 {{order.target_money}}</p>
-                        <p>배송 희망 위치 {{order.receive_place}}</p>
-                    </div>
-                </a>
-            </div>
+
+                </div>
+            </a>
+
             {% endfor %}
         </div>
 

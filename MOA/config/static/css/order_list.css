@@ -1,0 +1,147 @@
+:root {
+    --filter--color: #555555;
+    --button-border: 2px #676FA3 solid;
+    --button-border-radius: 5px;
+    --button-background: #FFFFFF;
+    --order-list-background: #EEF2FF;
+
+}
+
+span {
+    display: inline;
+}
+
+.order__container {
+    display: flex;
+    min-height: 75vh;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order__top {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 30px;
+}
+
+.order__logo {
+    margin-right: 5px;
+}
+
+.order__top .order__title {
+    margin-left: 5px;
+    font-size: 25px;
+    height: 54px;
+    font-weight: 700;
+    line-height: 54px;
+}
+
+.order__filter {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.order__filter__left {
+    display: flex;
+    width: 130px;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.order__filter__right {
+    display: flex;
+    width: 150px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.order__filter a {
+    color: var(--filter--color);
+}
+
+
+.order__list__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 340px;
+    margin: 20px 0 30px 0;
+}
+
+.order__list__container > a {
+    text-decoration: none;
+    width: 100%;
+}
+
+.order__list {
+    width: 340px;
+    display: flex;
+    height: 120px;
+    flex-direction: column;
+    margin: 10px 0;
+    background: var(--order-list-background);
+}
+
+.order__list__list {
+    display: flex;
+    justify-content: space-between;
+    height: 120px;
+    width: 340px;
+}
+
+.order__list__left {
+    width: 150px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.order__list__right {
+    width: 150px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.order__line {
+    width: 0px;
+    height: 80%;
+    border: 0.5px black dashed;
+}
+
+.order__ing {
+    color: red;
+}
+
+.order__end {
+    color: green;
+}
+
+
+.order__list__title {
+    color: black;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.order__title {
+    font-size: 15px;
+}
+
+.order__content {
+    font-size: 10px;
+    height: 18px;
+    display: inline;
+    color: black;
+}
+
+
+.order__list__next {
+    border-radius: var(--button-border-radius);
+    border: var(--button-border);
+    background: var(--button-background);
+    padding: 10px 30px;
+}
