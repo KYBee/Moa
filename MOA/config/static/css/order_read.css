@@ -3,6 +3,16 @@
     --input--border--radius: 5px;
     --button--background : #676FA3;
     --button--text : #EEF2FF;
+    --btn--update--background: #CDDEFF;
+    --btn--update--color: black;
+    --btn--delete--background: #FF5959;
+    --btn--delete--color: white;
+    --btn--complete--background: #676FA3;
+    --btn--complete--color: white;
+    --btn--participate--background: #676FA3;
+    --btn--participate--color: white;
+    --btn--participate--delete--background: #CDDEFF;
+    --btn--participate--delete--color: black;
 }
 
 .order__read__container {
@@ -17,7 +27,6 @@
 .order__read__top {
     display: flex;
     justify-content: space-evenly;
-    margin: 1.5rem 0;
 }
 
 .order__read__title {
@@ -62,4 +71,82 @@
     height: 0;
     border: 1px dashed black;
     margin-bottom: 1.2rem;
+}
+
+.order__read__option {
+    display: flex;
+    width: 20rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    width: 6rem;
+    height: 2rem;
+    border: 0;
+    border-radius: 5px;
+}
+
+.btn__update {
+    background: var(--btn--update--background);
+    color: var(--btn--update--color);
+}
+
+.btn__delete {
+    background: var(--btn--delete--background);
+    color: var(--btn--delete--color);
+}  
+
+.btn__complete {
+    background: var(--btn--complete--background);
+    color: var(--btn--complete--color);
+}
+
+.order__participate {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn__participate__delete {
+    margin: 1rem 0;
+    width: 20rem;
+    height: 2rem;
+    border: 0px;
+    border-radius: 5px;
+    background: var(--btn--participate--delete--background);
+    color: var(--btn--participate--delete--color);
+}
+
+.order__participate__desc {
+    margin-bottom: 1rem;
+    width: 20rem;
+}
+
+.order__participate > div > p {
+    text-decoration: none;
+    text-align: left;
+}
+
+.order__participate > div > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 2rem;
+    border: 1px solid var(--btn--participate--delete--background);
+    text-decoration: none;
+    border-radius: 5px;
+
+}
+
+.btn__participate {
+    width: 20rem;
+    height: 2rem;
+    border: 0px;
+    border-radius: 5px;
+    background: var(--btn--participate--background);
+    color: var(--btn--participate--color);
 }

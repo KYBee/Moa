@@ -93,39 +93,52 @@
                 </div>
             {% endif %}
         </div>
+        {% if user == order.host %}
 
-        <div class="order__read__option">
+            <div class="order__read__option">
+                <div class="order__btn__option">
+                    <button class="btn btn__update" onclick="location.href='{% url 'order:order_update' order.pk %}'">주문 수정</button>
+                </div>
 
-            {% if user == order.host %}
-                <a href="{% url 'order:order_update' order.pk %}">수정</a>
-                <br><br>
+                <div class="order__btn__option">
+                    <form action="{% url 'order:order_delete' order.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn__delete">주문 삭제</button>
+                    </form>    
+                </div>
 
-                <form action="{% url 'order:order_delete' order.pk %}" method="POST">
-                    {% csrf_token %}
-                    <button>삭제</button>
-                </form>
-                <br>
-
-                <form action="{% url 'order:order_close' order.pk %}" method="POST">
-                    {% csrf_token %}
-                    <button>주문완료</button>
-                </form>
-            {% else %}
+                <div class="order__btn__option">
+                    <form action="{% url 'order:order_close' order.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn__complete">주문 완료</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <div class="order__participate">
                 {% if fund %}
-                    <a href="{{order.chat_room}}">채팅방 링크: {{order.chat_room}}</a>
-                    <br><br>
-                    <form action="{% url 'funding:funding_delete' fund.pk %}" method="POST">
-                        {% csrf_token %}
-                        <button>펀딩참여취소</button>
-                    </form>
+                    <div class="order__participate__desc">
+                        <p>오픈채팅방에 참여하세요.</p>
+                    </div>
+                    <div class="order__btn__participate">
+                        <a href="{{order.chat_room}}">{{order.chat_room}}</a>
+                    </div>
+                    <div class="order__btn__participate">
+                        <form action="{% url 'funding:funding_delete' fund.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn__participate__delete">펀딩 참여 취소</button>
+                        </form>
+                    </div>
                 {% else %}
-                    <form action="{% url 'funding:funding_create' order.pk %}" method="POST">
-                        {% csrf_token %}
-                        <button>펀딩참여</button>
-                    </form>
+                    <div class="order__btn__participate">
+                        <form action="{% url 'funding:funding_create' order.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn__participate">펀딩 참여</button>
+                        </form>
+                    </div>
                 {% endif %}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     </div>
 
 {% endblock content %}
