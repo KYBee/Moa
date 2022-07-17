@@ -21,7 +21,6 @@
 
 .order__read__container {
     display: flex;
-    height: 90vh;
     width: 100%;
     flex-direction: column;
     justify-content : space-evenly;
