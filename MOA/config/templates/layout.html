@@ -36,6 +36,7 @@
       <div class="navbar__menu">
         <ul>
             {% if user.is_active %}
+                <li><a href="{% url 'order:order_create' %}">주문 만들기</a></li>
                 <li><a href="{% url 'funding:funding_list' %}">나의 주문 모아 보기</a></li>
                 <li><a href="javascript:void(0)" onclick="show_modal();">로그아웃</a></li>                
                 <li> </li>
