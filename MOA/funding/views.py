@@ -29,9 +29,13 @@ def funding_list(request):
         else:
             fundings = Fund.objects.filter(participant=request.user)
 
+        fundings = list(fundings)
+        fundings.sort(key=lambda x: x.order.target_time, reverse=True)
+
         context = {
             'user': request.user,
-            'fundings': fundings
+            'fundings': fundings,
+            'status': status,
         }
         return render(request, "funding/funding_list.html", context)
 

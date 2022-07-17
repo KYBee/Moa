@@ -1,28 +1,69 @@
 {% extends 'layout.html' %} {% load static %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/funding_list.css' %}">
+{% endblock extra_head %}
+
 {% block content %}
 
-    <hr>
+    <div class="funding__list__container">
 
-    <h2>마이페이지</h2>
-    <h3>{{request.user.username}}</h3>
-    <p>{{request.user.email}}</p>
+        <div class="funding__user__info">
+            <div class="funding__user__first">
+                <p>{{request.user.username}}</p>
+                <img src="{% static '/img/setting.svg' %}" alt="설정 아이콘">
+            </div>
+            <div class="funding__user__second">
+                <p>{{request.user.email}}</p>
+            </div>
+        </div>
 
-    <hr>
-    
-    <a href="?status=0">전체 펀딩 목록</a>
-    <a href="?status=1">진행중 펀딩 목록</a>
-    <a href="?status=2">종료된 펀딩 목록</a>
+        <div class="funding__op__btn">
+            {% if status == '0' %}
+                <a id="first_op" class="btn-clicked" href="?status=0">전체 펀딩 목록</a>
+                <a id="second_op" class="btn-nonclicked" href="?status=1">진행중 펀딩 목록</a>
+                <a id="third_op" class="btn-nonclicked" href="?status=2">종료된 펀딩 목록</a>
+            {% elif status == '1' %}
+                <a id="first_op" class="btn-nonclicked" href="?status=0">전체 펀딩 목록</a>
+                <a id="second_op" class="btn-clicked" href="?status=1">진행중 펀딩 목록</a>
+                <a id="third_op" class="btn-nonclicked" href="?status=2">종료된 펀딩 목록</a>
+            {% elif status == '2' %}
+                <a id="first_op" class="btn-nonclicked" href="?status=0">전체 펀딩 목록</a>
+                <a id="second_op" class="btn-nonclicked" href="?status=1">진행중 펀딩 목록</a>
+                <a id="third_op" class="btn-clicked" href="?status=2">종료된 펀딩 목록</a>
+            {% endif %}
+        </div>
 
-    {% for funding in fundings %}
-        <hr>
-            <a href="{% url 'order:order_read' funding.order.pk %}">
-                <div>
-                    <p>Participant : {{funding.participant.username}}</p>
-                    <p>Order : {{funding.order.store}}</p>
+        <div class="order__list__container">
+            {% for order in fundings %}
+            <a href="{% url 'order:order_read' order.pk %}">
+
+                <div class="order__list">
+                    <p class="order__list__title">주문서</p>
+                    <div class="order__list__list">
+                        <div class="order__list__left">
+                            <p class="order__content">상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;호&nbsp;&nbsp;&nbsp;{{order.order.store}}</p>
+                            {% if order.order.order_status %}
+                                <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행완료 <span class="order__end">●</span></p>
+                            {% else %}
+                                <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행중 <span class="order__ing">●</span></p>
+                            {% endif %}
+                            <p class="order__content">완료시간</p>
+                            <p class="order__content">{{order.order.target_time}}</p>
+                        </div>
+                        <div class="order__line"></div>
+                        <div class="order__list__right">
+                            <p class="order__content">펀딩 희망 인원&nbsp;&nbsp;&nbsp;{{order.order.target_people}}</p>
+                            <p class="order__content">펀딩 필요 금액&nbsp;&nbsp;&nbsp;{{order.order.target_money}}</p>
+                            <p class="order__content">배송 희망 위치</p>
+                            <p class="order__content">{{order.order.receive_place}}</p>
+                        </div>
+                    </div>
                 </div>
             </a>
-        <hr>
-    {% endfor %}
+            {% endfor %}
+        </div>
+
+    </div>
 
 {% endblock content %}

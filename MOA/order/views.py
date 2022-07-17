@@ -7,17 +7,15 @@ from funding.models import *
 from .forms import *
 from django.core.paginator import Paginator
 
-PAGINATOR_COUNT = 5
-
 def order_list(request):
     try:
         sort = request.GET["sort"]
         status = request.GET["status"]
-        page = request.GET['page']
+        # page = request.GET['page']
     except:
         sort = '0'
-        status = '0'
-        page = '1'
+        status = '1'
+        # page = '1'
 
     # Query String을 통한 정렬
     if sort == '1':
@@ -30,23 +28,26 @@ def order_list(request):
         orders = orders.filter(order_status=False)
 
     #Pagination Code
-    paginator = Paginator(orders, PAGINATOR_COUNT)
+    # paginator = Paginator(orders, PAGINATOR_COUNT)
 
-    if page == None:
-        page = 1
+    # if page == None:
+    #     page = 1
     
-    orders = paginator.get_page(page)
+    # orders = paginator.get_page(page)
 
     context = {
         'orders': orders,
         'sort' : sort,
         'status' : status,
-        'page': page,
+        # 'page': page,
     } 
 
     return render(request, 'order/order_list.html', context)
 
 def order_read(request, pk):
+    if request.user.is_anonymous:
+        return redirect('user:user_login')
+
     order = get_object_or_404(Order, pk=pk)
     fund = None
     if request.user.is_authenticated:
@@ -61,13 +62,23 @@ def order_read(request, pk):
     return render(request, 'order/order_read.html', context)
 
 def order_create(request):
+    if request.user.is_anonymous:
+        return redirect('user:user_login')
+
     if request.method == "POST":
         form = OrderForm(request.POST)
+
+        error = {}
 
         if form.is_valid():
             # open chat url validation
             try:
                 order = form.save(commit=False)
+                if order.target_people == None:
+                    order.target_people = "무관"
+
+                if order.target_money == None:
+                    order.target_money = "무관"
 
                 validate = URLValidator()
                 validate(order.chat_room)
@@ -82,10 +93,12 @@ def order_create(request):
                 return redirect('order:order_read', order.pk)
             except:
                 pass
-            
+
         context = {
             'form': form,
         }
+        error['target_time'] = True
+        context.update(error)
         return render(request, 'order/order_create.html', context)
 
     else:
@@ -97,8 +110,14 @@ def order_create(request):
 
 
 def order_update(request, pk):
+    if request.user.is_anonymous:
+        return redirect('user:user_login')
+
     order = get_object_or_404(Order, pk=pk)
-    if request.method == "POST":
+    if request.user != order.host:
+        return redirect('order:order_read', order.pk)
+
+    if request.method == "POST" and request.user == order.host:
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             order = form.save(commit=False)
@@ -115,16 +134,26 @@ def order_update(request, pk):
 
 
 def order_delete(request, pk):
-    order = get_object_or_404(Order, pk=pk)
+    if request.user.is_anonymous:
+        return redirect('user:user_login')
 
-    if request.method == "POST":
+    order = get_object_or_404(Order, pk=pk)
+    if request.user != order.host:
+        return redirect('order:order_read', order.pk)
+
+    if request.method == "POST" and request.user == order.host:
         order.delete()
         return redirect('order:order_list')
     else:
         redirect('order:order_read', order.pk)
 
 def order_close(request, pk):
+    if request.user.is_anonymous:
+        return redirect('user:user_login')
+
     order = get_object_or_404(Order, pk=pk)
+    if request.user != order.host:
+        return redirect('order:order_read', order.pk)
 
     if request.method == "POST" and request.user == order.host:
 
