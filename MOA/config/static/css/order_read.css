@@ -1,0 +1,65 @@
+:root {
+    --input--border--setting: 1px solid #CDDEFF;
+    --input--border--radius: 5px;
+    --button--background : #676FA3;
+    --button--text : #EEF2FF;
+}
+
+.order__read__container {
+    display: flex;
+    min-height: 75vh;
+    width: 100%;
+    flex-direction: column;
+    justify-content : space-evenly;
+    align-items : center;
+}
+
+.order__read__top {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1.5rem 0;
+}
+
+.order__read__title {
+    margin-left: 5px;
+    font-size: 25px;
+    font-weight: 600;
+    height: 54px;
+    line-height: 54px;
+}
+
+.order__info__container {
+    width: 20rem;
+}
+
+.order__info__field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.order__info {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1rem 0 1.2rem 0;
+}
+
+.order__info__img {
+    margin-right: .5rem;
+}
+
+.order__info__title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.order__info__content {
+    font-size: 1.1rem;
+}
+
+.horizontal {
+    width: 20rem;
+    height: 0;
+    border: 1px dashed black;
+    margin-bottom: 1.2rem;
+}
