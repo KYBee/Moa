@@ -16,15 +16,15 @@
 
         <div class="order__filter">
             <div class="order__filter__left">
-                <a href="?sort=0&status={{status}}&page={{page}}">생성순</a>
-                <a href="?sort=1&status={{status}}&page={{page}}">종료임박순</a>    
+                <a href="?sort=0&status={{status}}">생성순</a>
+                <a href="?sort=1&status={{status}}">종료임박순</a>    
             </div>
 
             <div class="order__filter__right">
-                {% if status == "1" %}
-                    <a href="?sort={{sort}}&status=0&page={{page}}">전체 주문 보기</a>
+                {% if status == '1' %}
+                    <a href="?sort={{sort}}&status=0">전체 주문 보기</a>
                 {% else %}
-                    <a href="?sort={{sort}}&status=1&page={{page}}">미완료 주문 보기</a>
+                    <a href="?sort={{sort}}&status=1">미완료 주문 보기</a>
                 {% endif %}
             </div>
         </div>
@@ -40,9 +40,9 @@
                         <div class="order__list__left">
                             <p class="order__content">상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;호&nbsp;&nbsp;&nbsp;{{order.store}}</p>
                             {% if order.order_status %}
-                                <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행중 <span class="order__ing">●</span></p>
-                            {% else %}
                                 <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행완료 <span class="order__end">●</span></p>
+                            {% else %}
+                                <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행중 <span class="order__ing">●</span></p>
                             {% endif %}
                             <p class="order__content">완료시간</p>
                             <p class="order__content">{{order.target_time}}</p>
@@ -62,9 +62,9 @@
             {% endfor %}
         </div>
 
-        <button class="order__list__next">
+        <!-- <button class="order__list__next">
             다음으로
-        </button>
+        </button> -->
     </div>
 
 {% endblock content %}

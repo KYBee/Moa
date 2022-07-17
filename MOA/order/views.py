@@ -7,17 +7,15 @@ from funding.models import *
 from .forms import *
 from django.core.paginator import Paginator
 
-PAGINATOR_COUNT = 5
-
 def order_list(request):
     try:
         sort = request.GET["sort"]
         status = request.GET["status"]
-        page = request.GET['page']
+        # page = request.GET['page']
     except:
         sort = '0'
         status = '0'
-        page = '1'
+        # page = '1'
 
     # Query String을 통한 정렬
     if sort == '1':
@@ -30,18 +28,18 @@ def order_list(request):
         orders = orders.filter(order_status=False)
 
     #Pagination Code
-    paginator = Paginator(orders, PAGINATOR_COUNT)
+    # paginator = Paginator(orders, PAGINATOR_COUNT)
 
-    if page == None:
-        page = 1
+    # if page == None:
+    #     page = 1
     
-    orders = paginator.get_page(page)
+    # orders = paginator.get_page(page)
 
     context = {
         'orders': orders,
         'sort' : sort,
         'status' : status,
-        'page': page,
+        # 'page': page,
     } 
 
     return render(request, 'order/order_list.html', context)
