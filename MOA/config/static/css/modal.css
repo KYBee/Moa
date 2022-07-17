@@ -38,8 +38,8 @@
 }
 
 .modal-button  button {
-    color: var(--button-color);
-    background-color: var(--button-background);
+    color: #EEF2FF;
+    background-color: #676FA3;
     width: 90px;
     font-size: .8rem;
     border-radius: var(--border-radius);
