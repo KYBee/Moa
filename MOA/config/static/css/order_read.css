@@ -15,9 +15,13 @@
     --btn--participate--delete--color: black;
 }
 
+.content {
+    min-height: 90vh;
+}
+
 .order__read__container {
     display: flex;
-    min-height: 75vh;
+    height: 90vh;
     width: 100%;
     flex-direction: column;
     justify-content : space-evenly;
