@@ -62,10 +62,17 @@ def order_create(request):
     if request.method == "POST":
         form = OrderForm(request.POST)
 
+        error = {}
+
         if form.is_valid():
             # open chat url validation
             try:
                 order = form.save(commit=False)
+                if order.target_people == None:
+                    order.target_people = "무관"
+
+                if order.target_money == None:
+                    order.target_money = "무관"
 
                 validate = URLValidator()
                 validate(order.chat_room)
@@ -80,10 +87,12 @@ def order_create(request):
                 return redirect('order:order_read', order.pk)
             except:
                 pass
-            
+
         context = {
             'form': form,
         }
+        error['target_time'] = True
+        context.update(error)
         return render(request, 'order/order_create.html', context)
 
     else:
