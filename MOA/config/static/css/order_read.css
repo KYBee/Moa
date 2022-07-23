@@ -15,16 +15,13 @@
     --btn--participate--delete--color: black;
 }
 
-.content {
-    min-height: 90vh;
-}
-
 .order__read__container {
     display: flex;
     width: 100%;
     flex-direction: column;
     justify-content : space-evenly;
     align-items : center;
+    min-height: 75vh;
 }
 
 .order__read__top {
