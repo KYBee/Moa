@@ -1,0 +1,70 @@
+{% extends 'layout.html' %} {% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/order_list.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+
+    <div class="order__container">
+        <div class="order__top">
+            <img class="order__logo" src="{% static 'img/login-logo.png' %}" alt="login-logo">
+            <div class="order__title">
+                모아보기
+            </div>
+        </div>
+
+        <div class="order__filter">
+            <div class="order__filter__left">
+                <a href="?sort=0&status={{status}}">생성순</a>
+                <a href="?sort=1&status={{status}}">종료임박순</a>    
+            </div>
+
+            <div class="order__filter__right">
+                {% if status == '1' %}
+                    <a href="?sort={{sort}}&status=0">전체 주문 보기</a>
+                {% else %}
+                    <a href="?sort={{sort}}&status=1">미완료 주문 보기</a>
+                {% endif %}
+            </div>
+        </div>
+
+        
+        <div class="order__list__container">
+            {% for order in orders %}
+            <a href="{% url 'order:order_read' order.pk %}">
+
+                <div class="order__list">
+                    <p class="order__list__title">주문서</p>
+                    <div class="order__list__list">
+                        <div class="order__list__left">
+                            <p class="order__content">상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;호&nbsp;&nbsp;&nbsp;{{order.store}}</p>
+                            {% if order.order_status %}
+                                <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행완료 <span class="order__end">●</span></p>
+                            {% else %}
+                                <p class="order__content">펀딩상태&nbsp;&nbsp;&nbsp;진행중 <span class="order__ing">●</span></p>
+                            {% endif %}
+                            <p class="order__content">완료시간</p>
+                            <p class="order__content">{{order.target_time}}</p>
+                        </div>
+                        <div class="order__line"></div>
+                        <div class="order__list__right">
+                            <p class="order__content">펀딩 희망 인원&nbsp;&nbsp;&nbsp;{{order.target_people}}</p>
+                            <p class="order__content">펀딩 필요 금액&nbsp;&nbsp;&nbsp;{{order.target_money}}</p>
+                            <p class="order__content">배송 희망 위치</p>
+                            <p class="order__content">{{order.receive_place}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+
+            {% endfor %}
+        </div>
+
+        <!-- <button class="order__list__next">
+            다음으로
+        </button> -->
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,36 @@
+:root {
+    --button--background : #676FA3;
+    --button--text : #EEF2FF;
+}
+
+.success__container {
+    display: flex;
+    height: 75vh;
+    width: 100%;
+    flex-direction: column;
+    justify-content : center;
+    align-items : center;
+}
+
+.success__logo {
+    margin: 1rem 0;
+}
+
+.success__title__1 {
+    margin: .5rem 0;
+    font-size: 1.5rem;
+}
+
+.success__title__2 {
+    margin: .5rem 0;
+}
+
+.success__button > button {
+    margin: .5rem 0;
+    width: 8rem;
+    height : 2rem;
+    background-color: var(--button--background);
+    color : var(--button--text);
+    border : 0px;
+    border-radius: 5px;
+}

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %} {% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+
+    <div class="success__container">
+        <img class="success__logo" src="{% static 'img/login-logo.png' %}" alt="login-logo">
+        <div class="success__title__1">
+            회원가입이 완료되었습니다.
+        </div>
+        <div class="success__title__2">
+            모아를 시작해보세요.
+        </div>
+        <div class="success__button">
+            <button onclick="location.href = '{% url 'user:user_login' %}'">로그인</button>
+        </div>
+    </div>
+
+{% endblock content %}

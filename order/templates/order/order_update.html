@@ -1,0 +1,77 @@
+{% extends 'layout.html' %} {% load static %}
+
+{% block extra_head %}
+    <script src="{% static 'js/order_create.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/order_create.css' %}">
+{% endblock extra_head %} 
+
+{% block content %}
+
+    <div class="order__create__container">
+
+        <div class="order__create__top">
+            <img class="order__create__logo" src="{% static 'img/login-logo.png' %}" alt="login-logo">
+            <div class="order__create__title">
+                주문서 수정
+            </div>
+        </div>
+
+        <div class="form__container">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+
+                {% for field in form %} 
+                
+                    <div class="order__title"><p>{{field.label}}</p></div>
+                
+                    {% if field.name == "store" %}
+                        <div class="order__create__field order__input">{{field}}
+                        </div>
+                    {% endif %}
+
+                    {% if field.name == "target_time" %}
+                        <div class="order__create__field order__input">{{field}}
+                        </div>
+                        <div class="order__desc"><p>* 언제까지 주문을 모아볼지 정해주세요.</p></div>
+                        {% if target_time %}
+                            <div class="unavailable"><p>오늘 이후의 날짜와 시간을 입력하세요.</p></div>             
+                        {% endif %}
+                        <div class="horizontal__line"></div>
+                        <br>
+                    {% endif %}
+
+                    {% if field.name == "target_people" %}
+                        <div class="order__create__field order__input check">{{field}}
+                        <input type="checkbox" class="box" name="target_people_checkbox" onClick="checkBoxClick('target_people')" style="margin: 0; width: 1rem;">무관</div>
+                        <div class="order__desc"><p>* 몇 명까지 주문을 모아볼지 정해주세요.</p></div>        
+                    {% endif %}
+
+                    {% if field.name == "target_money" %}
+                        <div class="order__create__field order__input check">{{field}}
+                        <input type="checkbox" class="box" name="target_money_checkbox" onClick="checkBoxClick('target_money')" style="margin: 0; width: 1rem;">무관</div>
+                        <div class="order__desc"><p>* 주문을 위해 얼마의 금액을 보아볼지 정해주세요.</p></div>        
+                    {% endif %}
+
+                    {% if field.name == "receive_place" %}
+                        <div class="order__create__field order__input">{{field}}
+                        </div>
+                        <div class="order__desc"><p>* 어디로 배송을 받을지 대략적인 희망 위치를 정해주세요.</p></div>        
+                    {% endif %}
+
+                    {% if field.name == "chat_room" %}
+                        <div class="order__create__field order__input">{{field}}
+                        </div>
+                        <div class="order__desc"><p>* 카카오톡 오픈채팅방 링크를 입력해주세요.</p></div>
+                    {% endif %}
+
+                {% endfor %}
+                
+                <div class="order__create__button">
+                    <button type="submit" class="order__create__submit">수정하기</button>
+                </div>
+
+            </form>
+        </div>    
+
+    </div>
+{% endblock content %}

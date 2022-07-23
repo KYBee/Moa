@@ -1,0 +1,42 @@
+{% extends 'layout.html' %} {% load static %}
+
+{% block extra_head %}
+    <script src="{% static 'js/login.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+
+    <div class="login__container">
+
+        <div class="login__top">
+            <img class="login__logo" src="{% static 'img/login-logo.png' %}" alt="login-logo">
+            <div class="login__title">
+                주문을 모아보다
+            </div>
+        </div>
+
+        <form action="" method="POST" class="login__form">
+            {%csrf_token%}
+                
+                <div class="login__field">
+                    {{form.email}}
+                </div>
+
+                <div class="login__field">
+                    {{form.password}}
+                </div>
+
+                {% if error %}
+                    <p class="unavailable">   
+                        {{error}}
+                    </p>
+                {% endif %}
+
+            <div class="login__button">
+                <button type="submit" class="login__submit">로그인</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

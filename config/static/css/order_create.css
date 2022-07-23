@@ -1,0 +1,120 @@
+:root {
+    --input--border--setting: 1px solid #CDDEFF;
+    --input--border--radius: 5px;
+    --button--background : #676FA3;
+    --button--text : #EEF2FF;
+}
+
+.order__create__container {
+    display: flex;
+    min-height: 75vh;
+    width: 100%;
+    flex-direction: column;
+    justify-content : space-evenly;
+    align-items : center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__container {
+    margin: 1.5rem 0;
+}
+
+.order__create__top {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1.5rem 0;
+}
+
+.order__create__logo {
+    margin-right: 5px;
+}
+.order__create__title {
+    margin-left: 5px;
+    font-size: 25px;
+    font-weight: 600;
+    height: 54px;
+    line-height: 54px;
+}
+
+.order__title > p {
+    width: 16rem;
+    text-align: left;   
+    font-size: 1.2rem;
+    font-weight: bold; 
+}
+
+.order__create__field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order__create__field > input {
+    width: 14rem;
+    height: 2.2rem;
+    margin: .5rem 0;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    border: var(--input--border--setting);
+    border-radius: var(--input--border--radius);
+}
+
+.check {
+    width: 16rem;
+    display: flex;
+    justify-content: space-between;
+}
+.check > input {
+    width: 10rem;
+}
+
+.check > .box {
+    font-size: .8rem;
+}
+
+.order__desc > p {
+    width: 16rem;
+    text-align: left;
+    color: gray;
+    font-size: .7rem;
+    margin-bottom: 1rem;
+}
+
+.order__create__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order__create__submit {
+    margin: 1rem auto 0 auto;
+    width: 8rem;
+    height : 2rem;
+    background-color: var(--button--background);
+    color : var(--button--text);
+    border : 0px;
+    border-radius: 5px;
+}
+
+.horizontal__line {
+    width: 16rem;
+    height: 0;
+    border: 1px dashed black;
+}
+
+.unavailable {
+    width: 16rem;
+}
+.unavailable > p {
+    text-align: left;
+    font-size: 0.7rem;
+    color: red;
+    margin-bottom: 1rem;
+}

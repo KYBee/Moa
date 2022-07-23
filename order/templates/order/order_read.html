@@ -1,0 +1,144 @@
+{% extends 'layout.html' %} {% load static %}
+
+{% block extra_head %}
+    <script src="{% static 'js/order_read.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/order_read.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+
+    <div class="order__read__container" style="height: 75vh;">
+
+        <div class="order__read__top">
+            <div class="order__read__title">
+                주문서
+            </div>
+        </div>
+
+        <div class="order__info__container">
+
+            <div class="order__info__field">
+                <div class="order__info__title">
+                    상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;호
+                </div>
+                <div class="order__info">
+                    <img class="order__info__img" src="{% static 'img/store.svg' %}" alt="식당 아이콘">
+                    <p class="order__info__content">{{order.store}}</p>
+                </div>
+            </div>
+
+            <div class="order__info__field">
+                <div class="order__info__title">
+                    진행상태
+                </div>
+                <div class="order__info">
+                    {% if order.order_status %}
+                        <p class="order__content"><span style="color: green;">●</span> 진행완료</p>
+                    {% else %}
+                        <p class="order__content"><span style="color: red;">●</span> 진행중</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="order__info__field">
+                <div class="order__info__title">
+                    완료시간
+                </div>
+                <div class="order__info">
+                    <img class="order__info__img" src="{% static 'img/clock.svg' %}" alt="시간 아이콘">
+                    <p class="order__info__content">{{order.target_time}}</p>
+                </div>
+            </div>
+
+            <div class="horizontal"></div>
+
+            <div class="order__info__field">
+                <div class="order__info__title">
+                    펀딩 희망 인원
+                </div>
+                <div class="order__info">
+                    <img class="order__info__img" src="{% static 'img/user.svg' %}" alt="인원 아이콘">
+                    <p class="order__info__content">{{order.target_people}}</p>
+                </div>
+            </div>
+
+            <div class="order__info__field">
+                <div class="order__info__title">
+                    펀딩 필요 금액
+                </div>
+                <div class="order__info">
+                    <img class="order__info__img" src="{% static 'img/money.svg' %}" alt="돈 아이콘">
+                    <p class="order__info__content">{{order.target_money}}</p>
+                </div>
+            </div>
+
+            <div class="order__info__field">
+                <div class="order__info__title">
+                    배송 희망 위치
+                </div>
+                <div class="order__info">
+                    <img class="order__info__img" src="{% static 'img/map.svg' %}" alt="지도 아이콘">
+                    <p class="order__info__content">{{order.receive_place}}</p>
+                </div>
+            </div>
+
+            {% if user == order.host %}
+                <div class="order__info__field">
+                    <div class="order__info__title">
+                        오픈채팅방 링크
+                    </div>
+                    <div class="order__info">
+                        <p class="order__info__content">{{order.chat_room}}</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% if user == order.host %}
+
+            <div class="order__read__option">
+                <div class="order__btn__option">
+                    <button class="btn btn__update" onclick="location.href='{% url 'order:order_update' order.pk %}'">주문 수정</button>
+                </div>
+
+                <div class="order__btn__option">
+                    <form action="{% url 'order:order_delete' order.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn__delete">주문 삭제</button>
+                    </form>    
+                </div>
+
+                <div class="order__btn__option">
+                    <form action="{% url 'order:order_close' order.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn__complete">주문 완료</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <div class="order__participate">
+                {% if fund %}
+                    <div class="order__participate__desc">
+                        <p>오픈채팅방에 참여하세요.</p>
+                    </div>
+                    <div class="order__btn__participate">
+                        <a href="{{order.chat_room}}">{{order.chat_room}}</a>
+                    </div>
+                    <div class="order__btn__participate">
+                        <form action="{% url 'funding:funding_delete' fund.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn__participate__delete">펀딩 참여 취소</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="order__btn__participate">
+                        <form action="{% url 'funding:funding_create' order.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn__participate">펀딩 참여</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock content %}
