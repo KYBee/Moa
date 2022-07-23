@@ -333,6 +333,9 @@ pip-selfcheck.json
 .history
 .ionide
 
+### KEY
+./config/secret.json
+
 # Support for Project snippet scope
 
 # End of 
