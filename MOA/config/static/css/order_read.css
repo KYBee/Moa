@@ -21,7 +21,7 @@
     flex-direction: column;
     justify-content : space-evenly;
     align-items : center;
-    min-height: 75vh;
+    min-height: 85vh;
 }
 
 .order__read__top {
