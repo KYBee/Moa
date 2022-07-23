@@ -32,6 +32,9 @@ def funding_list(request):
         fundings = list(fundings)
         fundings.sort(key=lambda x: x.order.target_time, reverse=True)
 
+        print(fundings)
+
+
         context = {
             'user': request.user,
             'fundings': fundings,
@@ -72,23 +75,25 @@ def funding_login(request):
 """
 pk : order.pk
 """
-#TODO : Front 에서 확인 후 Handling -> 만약 만료된 주문을 신청하려 하는 경우
 def funding_create(request, pk):
     if request.method == "POST":
         order = get_object_or_404(Order, pk=pk)
-        Fund.objects.create(
-            order=order,
-            participant=request.user,
-        )
+        if order.order_status == False:
+            Fund.objects.create(
+                order=order,
+                participant=request.user,
+            )
     return redirect("order:order_read", pk)
 
 """
-pk : funding.pk
+pk : order.pk
 """
 def funding_delete(request, pk):
-    fund = get_object_or_404(Fund, pk=pk)
-    if request.method == "POST":
-        fund = get_object_or_404(Fund, pk=pk)
-        if fund.participant == request.user:
+    try:
+        order = get_object_or_404(Order, pk=pk)
+        if request.method == "POST":
+            fund = Fund.objects.filter(order=order, participant=request.user)
             fund.delete()
-    return redirect("order:order_read", fund.order.pk)
+        return redirect("order:order_read", pk)    
+    except:
+        return redirect("order:order_read", pk)

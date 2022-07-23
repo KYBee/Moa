@@ -36,7 +36,7 @@
 
         <div class="order__list__container">
             {% for order in fundings %}
-            <a href="{% url 'order:order_read' order.pk %}">
+            <a href="{% url 'order:order_read' order.order.pk %}">
 
                 <div class="order__list">
                     <p class="order__list__title">주문서</p>

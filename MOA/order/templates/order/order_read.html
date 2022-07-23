@@ -93,118 +93,122 @@
                 </div>
             {% endif %}
         </div>
-        {% if user == order.host %}
+        {% if order.order_status == False %}
+            {% if user == order.host %}
 
-            <div class="order__read__option">
-                <div class="order__btn__option">
-                    <button class="btn btn__update" onclick="show_update_modal();">주문 수정</button>
-                </div>
+                <div class="order__read__option">
+                    <div class="order__btn__option">
+                        <button class="btn btn__update" onclick="show_update_modal();">주문 수정</button>
+                    </div>
 
-                <div class="order__btn__option">
-                    <button class="btn btn__delete" onclick="show_delete_modal();">주문 삭제</button>
-                </div>
+                    <div class="order__btn__option">
+                        <button class="btn btn__delete" onclick="show_delete_modal();">주문 삭제</button>
+                    </div>
 
-                <div class="order__btn__option">
-                    <button class="btn btn__complete" onclick="show_complete_modal();">주문 완료</button>
+                    <div class="order__btn__option">
+                        <button class="btn btn__complete" onclick="show_complete_modal();">주문 완료</button>
+                    </div>
                 </div>
+            {% else %}
+                <div class="order__participate">
+                    {% if fund %}
+                        <div class="order__participate__desc">
+                            <p>오픈채팅방에 참여하세요.</p>
+                        </div>
+                        <div class="order__btn__participate">
+                            <a href="{{order.chat_room}}">{{order.chat_room}}</a>
+                        </div>
+                        <div class="order__btn__participate">
+                            <button class="btn__participate__delete"  onclick="show_join_delete_modal();">펀딩 참여 취소</button>
+                        </div>
+                    {% else %}
+                        <div class="order__btn__participate">
+                            <button class="btn__participate"  onclick="show_join_modal();">펀딩 참여</button>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+        <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+        <div id="updateOrderModal" class="modal">
+
+            <!--modal content-->
+            <div class="modal-content">
+            <p>주문을 수정하시겠습니까?</p>
+            <div class="modal-button">
+                <form action="{% url 'order:order_update' order.pk %}" method="GET">
+                {% csrf_token %}
+                <button style="color:#EEF2FF; background: #676FA3;">확인</button>
+                </form>
+                <button style="color:#EEF2FF; background: #676FA3;" onclick="close_update_modal();">취소</button>
             </div>
-        {% else %}
-            <div class="order__participate">
-                {% if fund %}
-                    <div class="order__participate__desc">
-                        <p>오픈채팅방에 참여하세요.</p>
-                    </div>
-                    <div class="order__btn__participate">
-                        <a href="{{order.chat_room}}">{{order.chat_room}}</a>
-                    </div>
-                    <!-- <div class="order__btn__participate">
-                        <button class="btn__participate__delete"  onclick="show_join_delete_modal();">펀딩 참여 취소</button>
-                    </div> -->
-                {% else %}
-                    <div class="order__btn__participate">
-                        <button class="btn__participate"  onclick="show_join_modal();">펀딩 참여</button>
-                    </div>
-                {% endif %}
             </div>
-        {% endif %}
+        </div>
+
+        <div id="deleteOrderModal" class="modal">
+
+            <!--modal content-->
+            <div class="modal-content">
+            <p>주문을 삭제하시겠습니까?</p>
+            <p style="font-size: .8rem;">주문을 삭제시 주문 기록은 사라집니다.</p>
+            <div class="modal-button">
+                <form action="{% url 'order:order_delete' order.pk %}" method="POST">
+                {% csrf_token %}
+                <button style="color:#EEF2FF; background: #676FA3;">확인</button>
+                </form>
+                <button style="color:#EEF2FF; background: #676FA3;" onclick="close_delete_modal();">취소</button>
+            </div>
+            </div>
+        </div>
+
+        <div id="completeOrderModal" class="modal">
+
+            <!--modal content-->
+            <div class="modal-content">
+            <p>주문을 완료하시겠습니까?</p>
+            <div class="modal-button">
+                <form action="{% url 'order:order_close' order.pk %}" method="POST">
+                {% csrf_token %}
+                <button style="color:#EEF2FF; background: #676FA3;">확인</button>
+                </form>
+                <button style="color:#EEF2FF; background: #676FA3;" onclick="close_complete_modal();">취소</button>
+            </div>
+            </div>
+        </div>
+
+        <div id="fundingCreateModal" class="modal">
+
+            <!--modal content-->
+            <div class="modal-content">
+            <p>주문에 참여하시겠습니까?</p>
+            <div class="modal-button">
+                <form action="{% url 'funding:funding_create' order.pk %}" method="POST">
+                {% csrf_token %}
+                <button style="color:#EEF2FF; background: #676FA3;">확인</button>
+                </form>
+                <button style="color:#EEF2FF; background: #676FA3;" onclick="close_join_modal();">취소</button>
+            </div>
+            </div>
+        </div>
+
+        <div id="fundingDeleteModal" class="modal">
+
+            <!-- modal content -->
+            <div class="modal-content">
+            <p>주문에 참여하지 않겠습니까?</p>
+            <div class="modal-button">
+                <form action="{% url 'funding:funding_delete' order.pk %}" method="POST">
+                {% csrf_token %}
+                <button style="color:#EEF2FF; background: #676FA3;">확인</button>
+                </form>
+                <button style="color:#EEF2FF; background: #676FA3;" onclick="close_join_delete_modal();">취소</button>
+            </div>
+            </div>
+        </div>
+    {% else %}
     </div>
-
-    <script src="https://code.jquery.com/jquery-latest.js"></script>
-
-    <div id="updateOrderModal" class="modal">
-
-        <!--modal content-->
-        <div class="modal-content">
-          <p>주문을 수정하시겠습니까?</p>
-          <div class="modal-button">
-            <form action="{% url 'order:order_update' order.pk %}" method="GET">
-              {% csrf_token %}
-              <button style="color:#EEF2FF; background: #676FA3;">확인</button>
-            </form>
-            <button style="color:#EEF2FF; background: #676FA3;" onclick="close_update_modal();">취소</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="deleteOrderModal" class="modal">
-
-        <!--modal content-->
-        <div class="modal-content">
-          <p>주문을 삭제하시겠습니까?</p>
-          <p style="font-size: .8rem;">주문을 삭제시 주문 기록은 사라집니다.</p>
-          <div class="modal-button">
-            <form action="{% url 'order:order_delete' order.pk %}" method="POST">
-              {% csrf_token %}
-              <button style="color:#EEF2FF; background: #676FA3;">확인</button>
-            </form>
-            <button style="color:#EEF2FF; background: #676FA3;" onclick="close_delete_modal();">취소</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="completeOrderModal" class="modal">
-
-        <!--modal content-->
-        <div class="modal-content">
-          <p>주문을 완료하시겠습니까?</p>
-          <div class="modal-button">
-            <form action="{% url 'order:order_close' order.pk %}" method="POST">
-              {% csrf_token %}
-              <button style="color:#EEF2FF; background: #676FA3;">확인</button>
-            </form>
-            <button style="color:#EEF2FF; background: #676FA3;" onclick="close_complete_modal();">취소</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="fundingCreateModal" class="modal">
-
-        <!--modal content-->
-        <div class="modal-content">
-          <p>주문에 참여하시겠습니까?</p>
-          <div class="modal-button">
-            <form action="{% url 'funding:funding_create' order.pk %}" method="POST">
-              {% csrf_token %}
-              <button style="color:#EEF2FF; background: #676FA3;">확인</button>
-            </form>
-            <button style="color:#EEF2FF; background: #676FA3;" onclick="close_join_modal();">취소</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="fundingDeleteModal" class="modal">
-
-        <!-- modal content
-        <div class="modal-content">
-          <p>주문에 참여하지 않겠습니까?</p>
-          <div class="modal-button">
-            <form action="{% url 'funding:funding_delete' order.pk %}" method="POST">
-              {% csrf_token %}
-              <button style="color:#EEF2FF; background: #676FA3;">확인</button>
-            </form>
-            <button style="color:#EEF2FF; background: #676FA3;" onclick="close_join_delete_modal();">취소</button>
-          </div>
-        </div>
-      </div> -->
+    {% endif %}
 
 {% endblock content %}
