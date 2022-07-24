@@ -67,6 +67,11 @@ form {
     padding: 1rem;
     border: var(--input--border--setting);
     border-radius: var(--input--border--radius);
+    overflow: auto;
+}
+
+.signup__content > p {
+    font-size: .8rem;
 }
 
 .signup__button {
